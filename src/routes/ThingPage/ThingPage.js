@@ -6,6 +6,7 @@ import { Hyph, Section } from '../../components/Utils/Utils'
 import { ThingStarRating } from '../../components/ThingStarRating/ThingStarRating'
 import ReviewForm from '../../components/ReviewForm/ReviewForm'
 import './ThingPage.css'
+import TokenService from '../../services/token-service'
 
 export default class ThingPage extends Component {
   static defaultProps = {
@@ -53,9 +54,12 @@ export default class ThingPage extends Component {
       content = this.renderThing()
     }
     return (
-      <Section className='ThingPage'>
-        {content}
-      </Section>
+      <>
+      {TokenService.getAuthToken()
+        ? <Section className="ThingPage">{content}</Section>
+        : this.props.history.push('/login')
+      }
+      </>
     )
   }
 }

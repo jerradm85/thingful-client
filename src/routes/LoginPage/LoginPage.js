@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import LoginForm from '../../components/LoginForm/LoginForm'
 import { Section } from '../../components/Utils/Utils'
+import TokenService from '../../services/token-service'
 
 export default class LoginPage extends Component {
   static defaultProps = {
@@ -20,9 +21,10 @@ export default class LoginPage extends Component {
     return (
       <Section className='LoginPage'>
         <h2>Login</h2>
-        <LoginForm
-          onLoginSuccess={this.handleLoginSuccess}
-        />
+        {TokenService.getAuthToken()
+          ? this.props.history.push('/')
+          : <LoginForm onLoginSuccess={this.handleLoginSuccess} />
+        }
       </Section>
     )
   }
