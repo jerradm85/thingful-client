@@ -6,7 +6,9 @@ import './Header.css'
 
 export default class Header extends Component {
   handleLogoutClick = () => {
-    TokenService.clearAuthToken();
+    TokenService.clearAuthToken()
+    // not necessary, the Link tag already has a to attr linking to the list page
+    // this.props.history.push("/")
   }
 
   renderLogoutLink() {
