@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TokenService from '../../services/token-service'
+import IdleService from '../../services/idle-service'
 import './Header.css'
 
 export default class Header extends Component {
@@ -9,6 +10,10 @@ export default class Header extends Component {
     TokenService.clearAuthToken()
     // not necessary, the Link tag already has a to attr linking to the list page
     // this.props.history.push("/")
+    
+    /* when logging out, clear the callbacks to the refresh api and idle auto logout */
+    TokenService.clearCallbackBeforeExpiry()
+    IdleService.unRegisterIdleResets()
   }
 
   renderLogoutLink() {
